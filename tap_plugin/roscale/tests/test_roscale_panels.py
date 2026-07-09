@@ -13,7 +13,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-
 from tap_plugin.roscale.panels._common import (
     build_provenance,
     poam_headline_stats,
@@ -27,6 +26,7 @@ from tap_plugin.roscale.panels._common import (
     ssp_self_attestation_signal,
     ssp_system_overview,
 )
+
 from tap_web.panels.entity_resolution import EntityResolution
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -98,7 +98,7 @@ class TestBuildProvenance:
 class TestSspExtractors:
     @pytest.fixture
     def ssp(self) -> dict:
-        return _load("samsite_oscal_ssp.json")
+        return _load("example_oscal_ssp.json")
 
     def test_metadata(self, ssp):
         md = ssp_metadata(ssp)
@@ -152,7 +152,7 @@ class TestSspExtractors:
 class TestPoamExtractors:
     @pytest.fixture
     def poam(self) -> dict:
-        return _load("samsite_oscal_poam.json")
+        return _load("example_oscal_poam.json")
 
     def test_metadata(self, poam):
         md = poam_metadata(poam)
@@ -185,7 +185,7 @@ class TestSspBuildContext:
             mock_resolve.return_value = EntityResolution(
                 entity_id="ent-xyz",
                 var_name="oscal_ssp_artifact_entity_id",
-                node=_fake_node(content=_load("samsite_oscal_ssp.json")),
+                node=_fake_node(content=_load("example_oscal_ssp.json")),
                 error=None,
             )
             ctx = oscal_workbench.build_context(_FakePanel(), _FakeRequest({"oscal_ssp_artifact_entity_id": "ent-xyz"}))
@@ -212,7 +212,7 @@ class TestSspBuildContext:
             mock_resolve.return_value = EntityResolution(
                 entity_id="ent-xyz",
                 var_name="oscal_ssp_artifact_entity_id",
-                node=_fake_node(content=_load("samsite_oscal_poam.json")),
+                node=_fake_node(content=_load("example_oscal_poam.json")),
                 error=None,
             )
             ctx = oscal_workbench.build_context(_FakePanel(), _FakeRequest({"oscal_ssp_artifact_entity_id": "ent-xyz"}))
@@ -230,10 +230,12 @@ class TestPoamBuildContext:
             mock_resolve.return_value = EntityResolution(
                 entity_id="ent-xyz",
                 var_name="oscal_poam_artifact_entity_id",
-                node=_fake_node(content=_load("samsite_oscal_poam.json"), kind="oscal_poam"),
+                node=_fake_node(content=_load("example_oscal_poam.json"), kind="oscal_poam"),
                 error=None,
             )
-            ctx = oscal_poam_workbench.build_context(_FakePanel(), _FakeRequest({"oscal_poam_artifact_entity_id": "ent-xyz"}))
+            ctx = oscal_poam_workbench.build_context(
+                _FakePanel(), _FakeRequest({"oscal_poam_artifact_entity_id": "ent-xyz"})
+            )
 
         assert ctx["error_phase"] is None
         assert ctx["headline_stats"]["total"] > 0
@@ -270,7 +272,7 @@ class TestPanelBuildContextWithFallback:
             mock_resolve.return_value = EntityResolution(
                 entity_id="ent-latest",
                 var_name="oscal_ssp_artifact_entity_id",
-                node=_fake_node(content=_load("samsite_oscal_ssp.json")),
+                node=_fake_node(content=_load("example_oscal_ssp.json")),
                 error=None,
                 used_fallback=True,
                 fallback_description=self.SSP_FALLBACK_DESCRIPTION,
@@ -290,7 +292,7 @@ class TestPanelBuildContextWithFallback:
             mock_resolve.return_value = EntityResolution(
                 entity_id="ent-latest",
                 var_name="oscal_poam_artifact_entity_id",
-                node=_fake_node(content=_load("samsite_oscal_poam.json"), kind="oscal_poam"),
+                node=_fake_node(content=_load("example_oscal_poam.json"), kind="oscal_poam"),
                 error=None,
                 used_fallback=True,
                 fallback_description=self.POAM_FALLBACK_DESCRIPTION,
