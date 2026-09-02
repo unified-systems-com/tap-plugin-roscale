@@ -61,6 +61,7 @@ The implementation order is:
 ### Plugin Scope
 ----
 RID: `req-roscale-scope`
+
 Status: `Implemented`
 
 ROSCALE is a TAP helper and presentation plugin for OSCAL documents.
@@ -96,6 +97,7 @@ Consumers own the page instances that host ROSCALE's panels (through GRIFT or th
 ### OSCAL SSP Workbench Panel
 ----
 RID: `req-roscale-panel`
+
 Status: `Implemented`
 
 ROSCALE registers a reusable TAP Web panel type: `roscale-oscal-workbench`.
@@ -115,6 +117,7 @@ The panel should be reusable by any consumer plugin that has an OSCAL artifact o
 ### OSCAL POA&M Workbench Panel
 ----
 RID: `req-roscale-poam-panel`
+
 Status: `Implemented`
 
 ROSCALE registers a second reusable TAP Web panel type: `roscale-oscal-poam-workbench`.
@@ -140,6 +143,7 @@ The first POA&M experience should "put the pieces on the board": a readable, gro
 ### Panel Input Contract
 ----
 RID: `req-roscale-input`
+
 Status: `Implemented`
 
 The panels read OSCAL artifact entity ids through document-specific page variables. ROSCALE's defaults:
@@ -182,6 +186,7 @@ The exact config schema can be refined during implementation, but the principle 
 ### Generous Source Handling
 ----
 RID: `req-roscale-source`
+
 Status: `Implemented`
 
 ROSCALE should be generous in what it accepts.
@@ -217,6 +222,7 @@ Future target:
 ### OSCAL Validation
 ----
 RID: `req-roscale-validation`
+
 Status: `Implemented`
 
 ROSCALE provides a pure Python OSCAL validation capability.
@@ -265,6 +271,7 @@ Schema validation should not be treated as complete OSCAL semantic validation. N
 ### Workbench Rendering
 ----
 RID: `req-roscale-rendering`
+
 Status: `Implemented`
 
 The first SSP workbench is one large panel. It may use internal sections, sticky navigation, collapsible areas, or tabs as needed, but the panel renders as a single workbench rather than splitting across multiple consumer pages.
@@ -329,6 +336,7 @@ Control-family display should use friendly names where obvious, for example `AC 
 ### POA&M Rendering
 ----
 RID: `req-roscale-poam-rendering`
+
 Status: `Implemented`
 
 The POA&M workbench renders the plan of action and milestones as an action register. It should start practical rather than overly clever: put the items on screen, make them groupable and readable, and expose the fields that matter.
@@ -393,6 +401,7 @@ Where possible, the POA&M panel should connect references back to the grid. In v
 ### Error And Fallback Behavior
 ----
 RID: `req-roscale-errors`
+
 Status: `Implemented`
 
 The panel should fail kindly but visibly.
@@ -418,6 +427,7 @@ Only truly unusable input should prevent the workbench sections from rendering. 
 ### Vendored OSCAL Assets
 ----
 RID: `req-roscale-vendor`
+
 Status: `Proposed`
 
 ROSCALE should vendor the complete official OSCAL `1.1.2` JSON Schema bundle and public examples under a provenance-obvious path:
@@ -472,6 +482,7 @@ Licensing note: the official NIST OSCAL and `oscal-content` repositories are pub
 ### Future Grid Decomposition
 ----
 RID: `req-roscale-decompose`
+
 Status: `Backlog`
 
 After the workbench exists, ROSCALE should define how OSCAL documents decompose into first-class grid nodes and edges.
@@ -512,6 +523,7 @@ This is intentionally backlog. The first demand is visibility, not graph normali
 ### Future Editing
 ----
 RID: `req-roscale-edit`
+
 Status: `Backlog`
 
 Editing OSCAL is the "Edit" in ROSCALE, but it is deep backburner until there is a clear demand signal. Do not design a full editor in v0.
@@ -534,6 +546,7 @@ When editing becomes real, the likely path is:
 ### Future Migration: tap_web Entity Resolution
 ----
 RID: `req-roscale-entity-resolution-migration`
+
 Status: `Backlog`
 
 The roscale OSCAL SSP and POA&M workbench panels resolve their target `compliance_artifact` via local helpers in `plugins/roscale/panels/_common.py` (`resolve_artifact`, `_lookup_by_entity_id`, `_lookup_latest_by_kind`, `ArtifactResolution`). When `tap_web/specs/spec-web-panel-entity-resolution-v0.md` lands and the canonical `tap_web/panels/entity_resolution.py` module exists, roscale migrates to import from there.
