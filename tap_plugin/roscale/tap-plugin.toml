@@ -3,3 +3,8 @@ plugin_version = "0.1.0"
 slug = "roscale"
 name = "ROSCALE"
 description = "Read OSCAL Edit — TAP helper/presentation plugin that parses, validates, and renders OSCAL documents (System Security Plan and POA&M) inside TAP Web workbench panels."
+
+[[boot.records]]
+name = "ci"
+description = "RESERVED NAME (req-boot-bootstrap-ci-record): the stack this plugin's own tests run in — depends_on closure + self, offline, credential-free. The consumer flips self to editable."
+sha256 = "f0ddda2d0059a345b8342937f231e678a73a5cc8364fc0ce98c376ed5e4cf124"
